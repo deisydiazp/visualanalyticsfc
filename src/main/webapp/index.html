@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="iso8859-1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id" content="151439555733-mmkgdhlqbpau8dk9j5cehs50prkkjm1c.apps.googleusercontent.com">
+
+    <title>Visual Analytics - Fundación Canguro</title>
+
+    <!-- Bootstrap Core CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link href="css/mainIndex.css" rel="stylesheet">
+
+        <!-- jQuery -->
+    <script src="js/libraries/jquery.js"></script>
+    <script src="js/libraries/jquery.min.js"></script>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    
+    <!-- Bootstrap Core JavaScript -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--<script src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js"></script>-->
+
+    
+    <!-- Custom JS -->
+    <script src="js/controlerUsers.js"></script>
+    <script src="js/funcionesGenerales.js"></script>
+    
+    <style>
+        
+        .mensajeLoginUsuario{
+            position: fixed;
+            top: 70px;
+            right: 0;
+        }
+        
+        body{
+            overflow: hidden;
+        }
+        
+    </style>
+    
+</head>
+
+<body>
+
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12"> 	  
+                    <p class="pull-right"><i class="glyphicon glyphicon-user"></i><label id="usuarioLogueado"></label></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html" style="padding:0 0 0 15px"><img src="images/logo.jpg" alt="Fundación Canguro Colombia" style="height:60px"/></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">Home</a></li> 
+                        <!--<li><a href="#" onclick="$('#content').attr('src','filter.html?'+Date.now()); return false;">Crecimiento primer año</a></li>-->
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Crecimiento primer año<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick="$('#content').attr('src','environment.html?'+Date.now()); return false;">Entorno</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="$('#content').attr('src','pregnancy.html'); return false;">Embarazo</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="$('#content').attr('src','birth.html'); return false;">Nacimiento</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="$('#content').attr('src','growth.html'); return false;">Crecimiento</a></li>
+                            </ul>
+                        </li> 
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Resumen primer año<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="javascript:resumenTendCrecimiento('peso')">Resumen Peso</a></li>
+                                <li><a class="dropdown-item" href="javascript:resumenTendCrecimiento('talla')">Resumen Talla</a></li>
+                                <li><a class="dropdown-item" href="javascript:resumenTendCrecimiento('pc')">Resumen Per&iacute;metro Cef&aacute;lico</a></li>
+                                <li><a class="dropdown-item" href="javascript:resumenPesoInicial()">Resumen Peso Inicial</a></li>
+                                <li><a class="dropdown-item" href="javascript:resumenAlimentacion()">Resumen Alimentaci&oacute;n</a></li>
+                            </ul>
+                        </li> 
+                           
+                        <li id="liUsuarios" style="display:none"><a href="#" onclick="$('#content').attr('src','createUser.html?'+Date.now()); return false;">Gestión usuarios</a></li>
+                        
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Ayuda<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick="$('#content').attr('src','help.html'); return false;">Ayuda general</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="$('#content').attr('src','helpUsers.html'); return false;">Gestón de usuarios</a></li>
+                            </ul>
+                        </li> 
+                        <li id="liAcceder">
+                            <div class="g-signin2" data-onsuccess="onSignIn" style="margin-top:12px"></div>
+                        </li> 
+                        <li id="liCerrarSession" style="display:none">
+                            <a href="#" onclick="signOut(1);">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <iframe id="content" src="welcome.html" style="height: 900px; width: 100%; border: 0px;">
+        
+    </iframe>
+    <div class="mensajeLoginUsuario" id="divMensaje">
+    
+    </div>
+    <script>
+        var heigth=window.innerHeight - 90;
+        $('#content').attr('style','width: 100%; border: 0px;height: '+heigth+'px;');
+    </script>
+</body>
+
+</html>

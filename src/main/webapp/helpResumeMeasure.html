@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Peso Inicial</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+         <!-- Custom CSS -->
+        <link href="css/mainIndex.css" rel="stylesheet">
+
+            <!-- jQuery -->
+        <script src="js/libraries/jquery.js"></script>
+        <script src="js/libraries/jquery.min.js"></script>
+
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js"></script>
+
+    </head>
+    <body>
+        <!-- Content Section -->
+        <section>
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-12 lead section-lead">
+                        <h1 class="section-heading">Gráfica de comparación de peso <small> al nacer, a la entrada al PMC y a la semana 40</small></h1>
+                        
+                        <ul>
+                            <li><a href="#seccion1">1. Objetivo de la representación</a></li> 
+                            <li><a href="#seccion2">2. Cómo hacer uso de las gráficas</a></li>
+                        </ul>
+                        <br>
+                        <h3><a name="seccion1">1. Objetivo de la representación</a></h3>
+                        <p align="justify">El objetivo de esta representación es observar el cambio en peso de los niños en 3 puntos específicos: al nacer, a la entrada al PMC y a la semana 40.</p>
+                        <p align="justify">En la gráfica se presentan tres ejes verticales para representar cada uno de los pesos con escala en desviaciones estándar, lo que quiere decir que el peso al nacer, el peso a la entrada al PMC y el peso a la semana 40 de cada niño ha sido normalizado a desviaciones estándar. El proceso que se lleva a cabo para la normalización de estas medidas es el siguiente: </p>
+                        <ul>
+                            <li>
+                                Partiendo de la siguiente fórmula: <br><br>
+                                
+                                <img src="images/formula1.png" alt=""/><br><br>
+                                
+                                En donde:<br><br>
+
+                                X = peso en kilogramos<br>
+                                M = media<br>
+                                L = constante<br>
+                                S = constante<br>
+                                Z = desviación estándar<br><br>
+                                
+                                Los valores M, L, S son tomados de las siguientes tablas de Fenton una para Niñas y otra para Niños, por edad gestacional: <br><br>
+                                
+                                <img src="images/tablas.png" alt=""/><br>
+                            </li>
+                            <li>
+                                Despejando la formula anterior para hallar desviación estándar a partir del peso de obtiene:<br><br>
+                                <img src="images/formula2.png" alt=""/><br>
+                            </li>
+                            <li>
+                                Así por ejemplo se tienen los siguientes datos:<br><br>
+                                
+                                Género: 			Niña<br>
+                                Peso al nacer:			1363.0<br>
+                                Semana gestacional: 		32<br>
+                                Peso a la entrada al PMC:	1890.0<br>
+                                Semana a la entrada al PMC:	37<br>
+                                Peso a la semana 40: 		2500<br><br>
+
+                                <b>Calculo peso al nacer:</b><br><br>
+                                
+                                <img src="images/ejemplo1.png" alt=""/><br>
+                                <img src="images/formula3.JPG" alt=""/><br><br>
+                                
+                                <b>Calculo peso a la entrada al PMC:</b><br><br>
+                                
+                                <img src="images/ejemplo2.png" alt=""/><br>
+                                <img src="images/formula4.JPG" alt=""/><br><br>
+                                
+                                <b>Calculo peso a la semana 40:</b><br><br>
+                                
+                                <img src="images/ejemplo3.png" alt=""/><br>
+                                <img src="images/formula5.JPG" alt=""/><br><br>
+                                
+                            </li>
+                            <li>
+                                De acuerdo a los valores obtenidos anteriormente el comportamiento del peso de la niña seleccionada es el siguiente:<br><br>
+                                
+                                <img src="images/resultado.png" alt="" style="width:100%"/>
+                            </li>
+                        </ul>
+                        <br>
+                        <h3><a name="seccion2">2. Cómo hacer uso de las gráficas</a></h3>
+                        
+                        En esta sección se presenta una gráfica inicial o gráfica resumen que muestra el promedio por año en desviaciones estándar de: peso al nacer, peso a la entrada al PMC y peso a la semana 40 para niños (azul) y niñas (rosado) de acuerdo a los parámetros seleccionados en la página inicial.<br><br>
+
+                        A través del siguiente componente pueden generarse nuevas graficas que permiten hacer comparaciones entre diferentes muestras:<br><br>
+                        
+                        <img src="images/control1.png" alt="" style="width:100%"/><br><br>
+
+                        Cada cuadro corresponde a una semana gestacional o año de nacimiento que puede ser seleccionado o deseleccionado, el botón <img src="images/btnTodos.png" alt=""/> permite una selección o deselección rápida de todos los botones.<br><br>
+
+                        La siguiente selección por ejemplo muestra: el peso al nacer, peso a la entrada al PMC y peso a la semana 40 en desviaciones estándar, para los niños con semana gestacional  32 nacidos en los años 2006, 2007, 2008, 2009 o 2010:<br><br>
+
+                        <img src="images/control2.png" alt="" style="width:100%"/><br><br>
+                        <img src="images/ejemplo5.png" alt="" style="width:100%"/><br><br>
+                        
+                        En la anterior gráfica se observan los pesos en desviaciones estándar de cada uno de los niños y niñas que nacieron en la semana 32 entre los años 2006 y 2010.<br><br> 
+
+                        Las gráficas que se generen se mostraran una debajo de otra con el fin de permitir la comparación entre ellas:<br><br>
+                        
+                        <img src="images/control3.png" alt="" style="width:100%"/><br><br>
+                        <img src="images/ejemplo6.png" alt="" style="width:100%"/><br><br>
+                        
+                        En la anterior gráfica se observan los pesos en desviaciones estándar de cada uno de los niños y niñas que nacieron en la semana 32 entre los años 2011 y 2015. 
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

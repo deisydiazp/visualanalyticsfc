@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Resumen por año alimentación</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--js librerias-->
+        <script src="js/libraries/jquery-2.2.3.min.js"></script>
+        <script src="https://d3js.org/d3.v3.js"></script>
+
+        <!--js personalizados-->
+        <script type="text/javascript" src="js/barHorizontalFeeding.js"></script>
+        <script type="text/javascript" src="js/buttonClickBasic.js"></script>
+        <script type="text/javascript" src="js/checkBox.js"></script>
+        
+        <!-- css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/mainGeneral.css" rel="stylesheet"> 
+        <link href="css/parallelCoordinates.css" rel="stylesheet"> 
+        
+        <style>
+            .background_cargando >g > image{
+               display:initial;
+            }
+            
+            .background_none >g > image{
+               display:none;
+            }
+        </style>
+       
+    </head>
+    <!--onload="getDatafilter()"-->
+    <body class="hold-transition skin-blue sidebar-mini" onload="cargarResumenAlimentacion()">
+        <script type="text/javascript" src="js/controlerResumeFeeding.js"></script>
+        <script type="text/javascript" src="js/gridCircle.js"></script>
+        <div style="position: fixed;width: 40%; position:absolute; top:5px; right:30px; text-align: right;z-index: 1">
+            <div style="float: left">Ni&ntilde;a</div>
+            <div style="margin-left:15px; margin-right: 30px; height:20px; width:20px; background-color: #E2A9F3; float: left"></div>
+            <div style="float: left">Ni&ntilde;o</div>
+            <div style="margin-left:15px; margin-right: 30px; height:20px; width:20px; background-color: #58ACFA; float: left"></div>
+           
+            <span class="count_bottom"> <i class="fa fa-tasks"></i>&nbsp;<a href="javascript:mostrarVariablesMenu()">Variables filtro</a></span>&nbsp;&nbsp;
+            <span class="count_bottom"> <i class="fa fa-question-circle"></i>&nbsp;<a href="javascript:mostrarVentanaAyuda()">Ayuda</a></span>
+            <div id="divVariables" style="display:none; text-align: left; background-color: #E0E6F8; background-color: #F2F2F2; border: solid 2px orange;">
+                <div class="content" style="padding:10px">
+                    <h3>Variables filtro</h3>
+                    <div id="divVariablesFilter" class="list-group">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixedMensaje" style="display: none;" id="divMensaje">
+            <div class="alert alert-warning">
+                <a href="#" aria-label="close" onclick="javascript:$('#divMensaje').hide()">&times;</a>
+                <strong>Mensaje!</strong> Debe seleccionar por lo menos un año.
+            </div>
+        </div>
+        <div class="fixed">
+           <div>
+               <svg id="g_controles">
+                
+                </svg>  
+            </div>
+        </div>
+    </body>
+     
+</html>

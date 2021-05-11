@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Tendencias crecimiento</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/libraries/jquery-2.2.3.min.js"></script>
+        <script src="https://d3js.org/d3.v3.js"></script>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <script type="text/javascript" src="js/parallelCoordinates.js"></script>
+        <script type="text/javascript" src="js/barHorizontal.js"></script>
+        <script type="text/javascript" src="js/buttonBrush.js"></script>
+        <script type="text/javascript" src="js/button.js"></script>
+        <script type="text/javascript" src="js/gridCircle.js"></script>
+        <script type="text/javascript" src="js/checkBox.js"></script>
+        
+        <link href="./css/parallelCoordinates.css" rel="stylesheet">
+        
+        <style>
+            div.fixed {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: #F2F2F2;
+                font-size: 14px;
+                z-index: 1;
+                height: 80px;
+                border-top: solid 2px darkOrange;
+            }   
+            
+            .extent {
+                /*stroke: #fff;
+                fill-opacity: .125;
+                shape-rendering: crispEdges;*/
+                stroke: #1d9fcb;
+                fill: #1d9fcb;
+                fill-opacity: .225;
+                shape-rendering: crispEdges;
+            }
+            
+            .background_cargando >g > image{
+               display:initial;
+            }
+            
+            .background_none >g > image{
+               display:none;
+            }
+            
+            .title_section{
+                fill : darkOrange;
+                font-size: 20pt;
+            }
+        </style>
+    </head>
+    <body onload="cargarTendencias()">
+        <script type="text/javascript" src="js/controlerGrowthTrends.js"></script>
+        <div style="position: fixed;width: 30%; position:absolute; top:5px; right:30px; text-align: right;z-index: 1">
+            <span class="count_bottom"> <i class="fa fa-tasks"></i>&nbsp;<a href="javascript:showDivVariables()">Variables filtro</a></span>
+            <div id="divVariables" style="display:none; text-align: left; background-color: #E0E6F8; background-color: #F2F2F2; border: solid 2px orange;">
+                <div class="content" style="padding:10px">
+                    <h3>Variables filtro</h3>
+                    <div id="divVariablesFilter" class="list-group">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="fixed">
+            <svg id="g_tiempo"  height="50px">
+
+            </svg>
+        </div>-->
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 fixed">
+                <svg id="g_tiempo"  height="50px">
+
+                </svg>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </body>
+</html>

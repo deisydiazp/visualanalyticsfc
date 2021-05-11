@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Tendencias crecimiento</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <script src="https://d3js.org/d3.v3.js"></script>
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        
+        <script type="text/javascript" src="js/generalFunctions.js"></script>
+        <script type="text/javascript" src="js/line.js"></script>
+        <script type="text/javascript" src="js/buttonClickBasic.js"></script>
+        <script type="text/javascript" src="js/checkBox.js"></script>
+        
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- jQuery -->
+        <script src="js/libraries/jquery.js"></script>
+        <script src="js/libraries/jquery.min.js"></script>
+        
+        <link href="css/mainGeneral.css" rel="stylesheet">
+        
+        <style>
+            
+            .background_cargando >g > image{
+               display:initial;
+            }
+            
+            .background_none >g > image{
+               display:none;
+            }
+            
+            path {
+                stroke: #888;
+                stroke-width: 1;
+                opacity: 0.2;
+                -moz-transition: all 0.1s;
+                -o-transition: all 0.1s;
+                -webkit-transition: all 0.1s;
+                transition: all 0.1s;
+                cursor: pointer;
+                fill: none;
+            }
+
+            g.linklight path{
+                stroke: #ff0000;
+                opacity: 1;
+            }
+
+            g.highlight path {
+                stroke: #cfa63e;
+                stroke-width: 4;
+                opacity: 1;
+            }
+            
+            .axis path,
+            .axis line {
+                    fill: none;
+                    stroke: #BCBCBC;
+                    stroke-width: 1;
+                    shape-rendering: crispEdges;
+            }
+
+            .axis path {
+                    opacity: 1;
+            }
+            
+            g[id="des_3Neg"] .lineStandard{
+                stroke: #FE9A2E; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+
+            g[id="des_2Neg"] .lineStandard{
+                stroke: #FE9A2E; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+
+            g[id="des_1Neg"] .lineStandard{
+                stroke: #FE9A2E; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+
+            g[id="des_0"] .lineStandard{
+                stroke: #0B6121; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+
+            g[id="des_1"] .lineStandard{
+                stroke: #FE9A2E; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+
+            g[id="des_2"] .lineStandard{
+                stroke: #FE9A2E; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+
+            g[id="des_3"] .lineStandard{
+                stroke: #FE9A2E; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+
+            g[id="avg_0"] .lineStandard{
+                stroke: #DF0101; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+
+            g[id="avgN_0"] .lineStandard{
+                stroke: #0431B4; 
+                stroke-opacity: 1; 
+                opacity: 1
+            }
+            
+        </style>
+    </head>
+    <body onload="cargarTendencias()">
+        <script type="text/javascript" src="js/controlerGrowthTrendsCoord.js"></script>
+        <div style="position: fixed;width: 30%; position:absolute; top:5px; right:30px; text-align: right;z-index: 1">
+            <span class="count_bottom"> <i class="fa fa-tasks"></i>&nbsp;<a href="javascript:showDivVariables()">Variables filtro</a></span>
+            <div id="divVariables" style="display:none; text-align: left; background-color: #E0E6F8; background-color: #F2F2F2; border: solid 2px orange;">
+                <div class="content" style="padding:10px">
+                    <h3>Variables filtro</h3>
+                    <div id="divVariablesFilter" class="list-group">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixedMensaje" style="display: none;" id="divMensaje">
+            <div class="alert alert-warning">
+                <a href="#" aria-label="close" onclick="javascript:$('#divMensaje').hide()">&times;</a>
+                <strong>Mensaje!</strong>Debe seleccionar por lo menos un año.
+            </div>
+        </div>
+        <div class="fixed">
+           <div>
+               <svg id="g_controles">
+                
+                </svg>  
+            </div>
+        </div>
+    </body>
+</html>

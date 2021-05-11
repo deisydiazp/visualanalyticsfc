@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Filtros</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--js librerias-->
+        <script src="js/libraries/jquery-2.2.3.min.js"></script>
+        <script src="https://d3js.org/d3.v3.js"></script>
+
+        <!--js personalizados-->
+        <script type="text/javascript" src="js/barHorizontal.js"></script>
+        <script type="text/javascript" src="js/barNegative.js"></script>
+        <script type="text/javascript" src="js/barGroup.js"></script>
+        <script type="text/javascript" src="js/bar.js"></script>
+        <script type="text/javascript" src="js/sankey.js"></script>
+        <script type="text/javascript" src="js/buttonBrush.js"></script>
+        <script type="text/javascript" src="js/button.js"></script>
+        <script type="text/javascript" src="js/buttonClick.js"></script>
+        <script type="text/javascript" src="js/tip.js"></script>
+        <script type="text/javascript" src="js/stackedBarNegative.js"></script>
+        
+        <!-- css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" id="bootstrap-css">
+
+        <style>
+
+            .whisker line,
+            .median line,
+            .box rect {
+                fill: #fff;
+                stroke: #000;
+                stroke-width: 1px;
+                shape-rendering: crispEdges;
+            }
+
+            .outlier {
+                stroke: black;
+                stroke-width: 2px;
+            }
+
+            .point {  
+                opacity: 0.25; 
+            }
+
+            .axis path {
+                fill: none;
+                stroke: black;
+                stroke-width: 1px;
+                shape-rendering: crispEdges;
+            }
+
+            .axis line {
+                fill: none;
+                stroke: black;
+                stroke-width: 1px;
+                shape-rendering: crispEdges;
+            }
+
+            .axis text {    
+                font-size: 10px;
+            }
+
+            .extent {
+                stroke: #1d9fcb;
+                fill: #1d9fcb;
+                fill-opacity: .225;
+                shape-rendering: crispEdges;
+            }
+
+            .leaf circle {
+                fill: #F0F0F0;
+                fill-opacity: 1;
+            }
+
+            .title_section{
+                fill : darkOrange;
+                font-size: 20pt;
+            }
+
+            div.fixed {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: #F2F2F2;
+                font-size: 14px;
+                z-index: 1;
+                height: 80px;
+                border-top: solid 2px darkOrange;
+            } 
+
+            /*******************************/
+
+            /*.tile_count {
+                            background-color: #F2F2F2;
+            }*/
+            .tile_count .tile_stats_count {
+                border-bottom: 1px solid #D9DEE4;
+                border-top: 1px solid #D9DEE4;
+                padding: 10px 30px 0 30px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                position: relative;
+                height: 130px;
+                background-color:  #f4f6f6;
+            }
+            .tile_count .tile_stats_count:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                height: 110px;
+                border-left: 2px solid #ADB2B5;
+                /*margin-top: 10px*/
+            }
+            .tile_count .tile_stats_count .count {
+                font-size: 30pt;
+                line-height: 47px;
+                font-weight: 600;
+                text-align: center;
+            }
+
+            /*******************************/
+
+            .background_cargando >g > image{
+                display:initial;
+            }
+
+            .background_none >g > image{
+                display:none;
+            }
+
+        </style>
+
+        <style type="text/css">
+            .sankeybox {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+            }
+            .sankey .node text {
+                pointer-events: none;
+            }
+            .sankey .link {
+                fill: none;
+                stroke: #000;
+                stroke-opacity: .2;
+            }
+            .sankey .link:hover {
+                stroke-opacity: .4;
+            }
+            h1, h2, h3 {
+                line-height: 12px !important;
+            }
+            .d3-tip h1 {
+                font-size: 14px;
+                padding: 0;
+                margin-bottom: 5px;
+                width: 100%;
+            }
+            .d3-tip h2 {
+                font-weight: bold;
+                font-size: 12px;
+                padding-right: inherit;
+                padding-left: inherit;
+                padding-top: 2px;
+                padding-bottom: 2px;
+                margin: 0px;
+            }
+            .d3-tip h3 {
+                font-weight: normal;
+                font-size: 8px;
+                margin: 0;
+                padding: 0;
+            }
+            .d3-tip table {
+                font-weight: normal;
+                font-size: 12px;
+                padding: none;
+                margin: 0;
+                width: 100%;
+                border: none;
+                border-collapse: collapse;
+            }
+            .d3-tip td {
+                padding-top: 2px;
+                padding-bottom: 2px;
+            }
+            .d3-tip .col-left {
+                padding-right: 8px;
+            }
+            .d3-tip .table-wrapper {
+                margin: 0;
+                padding: inherit;
+                border: none;
+            }
+            .d3-tip {
+                line-height: 1;
+                font-weight: normal;
+                padding: 4px;
+                background: white;
+                color: black;
+                border-radius: 2px;
+                pointer-events: none;
+                background:  white;
+                box-shadow: 1px 1px 4px grey;
+            }
+        </style>	
+        <style>
+            .node rect {
+                cursor: move;
+                fill-opacity: .9;
+                shape-rendering: crispEdges;
+            }
+            .node text {
+                pointer-events: none;
+                text-shadow: 0px 0px 13px #fff;
+            }
+            .node:hover {
+                stroke-opacity: .2;
+            }
+            .link {
+                fill: none;
+                stroke: #000;
+                stroke-opacity: .2;
+            }
+            .link:hover {
+                stroke-opacity: .5;
+            }
+        </style>
+        <style>
+            .bar--positive {
+                fill: #9467bd;
+            }
+
+            .bar--negative {
+                fill: #d62728;
+            }
+        </style>    
+    </head>
+    <!--onload="getDatafilter()"-->
+    <body class="hold-transition skin-blue sidebar-mini" onload="getDataGrowth()">
+
+
+        <div style="position: fixed;width: 30%; position:absolute; top:130px; right:30px; text-align: right">
+            <!--<button onclick="myFunction()">Filtros</button>-->
+            <span class="count_bottom"> <i class="fa fa-tasks"></i>&nbsp;<a href="javascript:showDivVariables()">Variables filtro</a></span>
+            <div id="divVariables" style="display:none; text-align: left; background-color: #E0E6F8; background-color: #F2F2F2; border: solid 2px orange">
+                <div class="content" style="padding:10px">
+                    <h3>Variables filtro</h3>
+                    <div id="divVariablesFilter" class="list-group">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tile_count" id="g_totalesprematuro" style="background-color:'#f4f6f6'">
+            <div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <img src="images/nina.png" style="width:70px"/>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-10">
+                        <div class="row">
+                            <div class="col-12" style="text-align:center">
+                                <div style="float: left; width: 50%">
+                                    <span><i class="fa fa-venus"></i> Total Niñas</span><br>
+                                    <label class="porcentaje" for="porcentaje_genero_2" style="font-size: 20pt; margin-left:15px">0%</label>
+                                </div>
+                                <div class="count" style="color:#E2A9F3">
+                                    <label class="total" for="total_genero_2">0</label>
+                                </div> 
+                            </div>    
+                        </div>
+                        <div class="row">
+                            <div class="col-12" style="text-align:center">
+                                <span style="margin-left:15px; margin-rigth:15px"> <i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento peso ni&ntilde;as" href="javascript:getDataTrends('peso',2)">Peso</a></span>
+                                <span style="margin-left:15px; margin-rigth:15px"> <i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento talla ni&ntilde;as" href="javascript:getDataTrends('talla',2)">Talla</a></span>
+                                <span style="margin-left:15px; margin-rigth:15px"> <i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento pc ni&ntilde;as" href="javascript:getDataTrends('pc',2)">PC</a></span>
+                                <br>
+                                <span style="margin-left:15px; margin-rigth:15px"> <i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento normalizadas peso ni&ntilde;as" href="javascript:getDataTrendsCoord('peso',2)">Peso</a></span>
+                                <span style="margin-left:15px; margin-rigth:15px"> <i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento normalizadas talla ni&ntilde;as" href="javascript:getDataTrendsCoord('talla',2)">Talla</a></span>
+                                <span style="margin-left:15px; margin-rigth:15px"> <i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento normalizadas pc ni&ntilde;as" href="javascript:getDataTrendsCoord('pc',2)">PC</a></span>
+                           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
+                 <div class="row">
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                        <img src="images/nino.png" style="width:70px"/>
+                    </div>
+                    <div class="col-md-10 col-sm-10 col-xs-10">
+                        <div class="row">
+                            <div class="col-12" style="text-align:center">
+                                <div style="float: left; width: 50%">
+                                    <span><i class="fa fa-mars"></i> Total Niños</span><br>
+                                    <label class="porcentaje" for="porcentaje_genero_1" style="font-size: 20pt; margin-left:15px">0%</label>
+                                </div>
+                                <div class="count" style="color:#58ACFA; float: left">
+                                    <label class="total" for="total_genero_1">0</label>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12" style="text-align:center">
+                                <span style="margin-left:15px; margin-rigth:15px"><i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento peso ni&ntilde;os" href="javascript:getDataTrends('peso',1)">Peso</a></span>
+                                <span style="margin-left:15px; margin-rigth:15px"><i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento talla ni&ntilde;os" href="javascript:getDataTrends('talla',1)">Talla</a></span>
+                                <span style="margin-left:15px; margin-rigth:15px"><i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento pc ni&ntilde;os" href="javascript:getDataTrends('pc',1)">PC</a></span>
+                                <br>
+                                <span style="margin-left:15px; margin-rigth:15px"><i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento normalizadas peso ni&ntilde;os" href="javascript:getDataTrendsCoord('peso',1)">Peso</a></span>
+                                <span style="margin-left:15px; margin-rigth:15px"><i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento normalizadas talla ni&ntilde;os" href="javascript:getDataTrendsCoord('talla',1)">Talla</a></span>
+                                <span style="margin-left:15px; margin-rigth:15px"><i class="fa fa-line-chart"></i>&nbsp;<a title="Tendencias crecimiento normalizadas pc ni&ntilde;os" href="javascript:getDataTrendsCoord('pc',1)">PC</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
+                <div class="row">
+                    <div class="col-12" style="text-align:center">
+                        <div style="float: left; width: 50%">
+                            <span><i class="fa fa-meh-o"></i> Total Niños y Niñas con RCIU</span><br>
+                            <label class="porcentaje"  for="porcentaje_RCIU_1" style="font-size: 15pt;">0%</label>
+                        </div>
+                        <div class="count" style="color:#637939; float: left; width: 50%">
+                            <label class="total" for="total_RCIU_1">0</label>
+                        </div> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" style="text-align:center">
+                        <div style="float: left; width: 50%">
+                            <span><i class="fa fa-smile-o"></i> Total Niños y Niñas sin RCIU</span><br>
+                            <label class="porcentaje"  for="porcentaje_RCIU_0" style="font-size: 15pt;">0%</label>
+                        </div>
+                        <div class="count" style="color:#b5cf6b; float: left; width: 50%">
+                            <label class="total" for="total_RCIU_0">0</label>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 tile_stats_count">
+                <div>
+                    <span><i class="fa fa-smile-o"></i> Total Registros</span>
+                    <div class="count"  style="border: solid 2px darkorange; border-radius:10px; color: darkorange">
+                        <label class="total" for="total_registros">0</label>
+                    </div>
+                </div> 
+            </div>
+        </div>
+       
+        <div id="gbody" style="width: 100%; padding-left: 40px; margin-bottom: 120px;">
+
+        </div>
+        
+        <div class="fixed">
+            <div style="width:80px; float: left; border-right: solid 1px #ccc; margin-left:20px; padding-top: 15px; height: 80px">
+                <i class="fa fa-folder-open-o"></i>&nbsp;<a href="javascript:openModalAbrir()">Abrir</a><br>
+                <i class="fa fa-save"></i>&nbsp;<a href="javascript:openModalGuardar()">Guardar</a>
+            </div>
+            <div style="float:left;padding:35px 10px 0 10px">
+                <a href="#"><i class="fa fa-bar-chart" aria-hidden="true" onclick="javascript:actualizarGraficaTiempo()"></i></a>
+            </div>
+            <div style="float: left;">
+                <svg id="g_tiempo"  height="80px">
+                
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Modal Save-->
+        <div id="modalSave" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Guardar Consulta</h2>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="txtNombreMuestra">Nombre consulta</label>
+                                <input type="text" class="form-control" id="txtNombreMuestra">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtVariablesFiltro">Variables filtro:</label>
+                                <div id="divVariablesSave" class="list-group" style="overflow-x: none; overflow-y: auto; height: 250px">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDescripcionMuestra">Descripción de la consulta:</label>
+                                <textarea rows="4" cols="50" class="form-control" id="txtDescripcionMuestra"></textarea>
+                            </div>  
+                            <button type="button" class="btn btn-default" onClick="saveEstadoConsulta()" id="btnGuardarConsulta">Guardar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <label id="txtMensajeGuardar" style="color: red"></label>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div id="modalOpen" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Abrir Consulta</h2>
+                    </div>
+                    <div class="modal-body">
+                        <label>Consultas disponibles:</label>
+                        <div id="divConsultasEstado" class="list-group" style="overflow-x: none; overflow-y: auto; height: 200px">
+
+                        </div> 
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <!--<div id="page-selection"></div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position: fixed;width: 800px; position:absolute; bottom:80px; left: 15px">
+            <!--<button onclick="myFunction()">Filtros</button>-->
+            <div id="divTiempo" style="display:none; text-align: left; background-color: #E0E6F8; background-color: #F2F2F2; border: solid 2px orange">
+                <div class="content" style="padding:10px">
+                    <svg id="g_tiempoResumen"  height="360px" width="750px">
+                
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/funcionesGenerales.js"></script>  
+        <script type="text/javascript" src="js/controlerGrowth.js"></script>       
+    </body>
+
+</html>

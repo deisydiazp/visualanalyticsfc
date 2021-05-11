@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Visual Analytics - Fundación Canguro</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link href="css/mainIndex.css" rel="stylesheet">
+
+        <!-- jQuery -->
+    <script src="js/libraries/jquery.js"></script>
+    <script src="js/libraries/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//raw.github.com/botmonster/jquery-bootpag/master/lib/jquery.bootpag.min.js"></script>
+    
+    
+    <!-- Custom JS -->
+    <script src="js/controlerUsers.js"></script>
+    
+    <style>
+        
+    </style>
+    
+</head>
+
+<body onload="cargarUsuarios()">   
+    <!-- Content Section -->
+    <section>
+        <div class="container">
+            <h2>Registrar usuarios</h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="divMensaje">
+                        <label style="font-weight:normal" id="lblMensajeAdvertencia"></label>
+                    </div>
+                        <div class="form-group">
+                            <label for="nombreUsuario">Nombre</label>
+                            <input type="text" class="form-control" id="nombreUsuario" placeholder="nombre del usuario" name="nombreUsuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailUsuario">Email</label>
+                            <input type="email" class="form-control" id="emailUsuario" placeholder="email del usuario" name="emailUsuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcionUsuario">Descripción</label>
+                            <textarea class="form-control" id="descripcionUsuario" rows="3" name="descripcionUsuario"></textarea>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="chAdministrador"> Administrador
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-default" onclick="registrarUsuario()" id="btnGuardar" style="display:block">Crear usuario</button>
+                        <button type="submit" class="btn btn-default" onclick="editarUsuario()" id="btnEditar" style="display:none">Actualizar usuario</button>
+                </div>
+            </div>
+            <br>
+            <br>
+            <h2>Usuarios registrados</h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="divTablaUsuarios">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.container -->
+    </section>
+ 
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </footer>
+    
+</body>
+
+</html>

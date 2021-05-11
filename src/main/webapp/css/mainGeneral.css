@@ -1,0 +1,36 @@
+/*
+ * Start Bootstrap - Full Width Pics (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body {
+    margin-top: 50px; /* Required margin for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+svg {
+    font: 10px sans-serif;
+}
+             
+.title_section{
+    fill : darkOrange;
+    font-size: 18px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+div.fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #F2F2F2;
+    font-size: 14px;
+    z-index: 1;
+    height: 80px;
+    border-top: solid 2px darkOrange;
+}
+
+div.fixedMensaje {
+    position: fixed;
+    bottom: 70px;
+    right: 0;
+}
